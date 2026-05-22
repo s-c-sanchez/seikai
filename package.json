@@ -1,0 +1,44 @@
+{
+  "name": "seikai",
+  "description": "A precise and reliable TypeScript validation library",
+  "version": "0.1.0",
+  "keywords": [
+    "typescript",
+    "validation",
+    "chema",
+    "parsing",
+    "type-safe"
+  ],
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "lint": "biome lint",
+    "format": "biome format --write",
+    "typecheck": "tsc",
+    "check": "biome check && bun run typecheck",
+    "build": "tsdown"
+  },
+  "license": "MIT",
+  "author": "Sergio Casado",
+  "homepage": "https://github.com/s-c-sanchez/seikai",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/s-c-sanchez/seikai"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.4.15",
+    "tsdown": "0.22.0",
+    "typescript": "6.0.3"
+  }
+}
