@@ -13,8 +13,4 @@ export default defineConfig({
       keepNames: true,
     },
   },
-  exports: {
-    enabled: true,
-    packageJson: false,
-  },
 })
