@@ -1,5 +1,7 @@
 # Seikai
 
+[![CI](https://img.shields.io/github/actions/workflow/status/s-c-sanchez/seikai/ci.yml?branch=main&style=for-the-badge&logo=github&label=CI)](https://github.com/s-c-sanchez/seikai/actions/workflows/ci.yml)
+
 > A precise and reliable TypeScript validation library with a modular API.
 
 Seikai (Japanese for _"correct"_ or _"right answer"_) is a schema validation and parsing library built for TypeScript. It focuses on precision, reliability, and modularity, taking inspiration from libraries like [Valibot](https://valibot.dev/).
