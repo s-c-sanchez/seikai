@@ -24,9 +24,9 @@ export function resolvePath(path: ItemPath | undefined): PropertyKey[] {
   let current: ItemPath | undefined = path
 
   while (current) {
-    resolved.unshift(current.key)
+    resolved.push(current.key)
     current = current.parent
   }
 
-  return resolved
+  return resolved.reverse()
 }
