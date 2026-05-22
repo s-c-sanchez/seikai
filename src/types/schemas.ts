@@ -4,7 +4,7 @@
  * @template TInput - The input type of the schema.
  * @template TOutput - The output type of the schema. Defaults to `TInput`.
  */
-export interface BaseSchema<TInput, TOutput = TInput> {
+export interface Schema<TInput, TOutput = TInput> {
   /**
    * Parses and validates the input synchronously.
    *
@@ -37,8 +37,8 @@ export interface BaseSchema<TInput, TOutput = TInput> {
  * @template TInput - The input type of the schema.
  * @template TOutput - The output type of the schema. Defaults to `TInput`.
  */
-export interface BaseSchemaAsync<TInput, TOutput = TInput>
-  extends Omit<BaseSchema<TInput, TOutput>, "~run" | "isAsync"> {
+export interface AsyncSchema<TInput, TOutput = TInput>
+  extends Omit<Schema<TInput, TOutput>, "~run" | "isAsync"> {
   /**
    * Parses and validates the input asynchronously.
    *
@@ -78,20 +78,22 @@ interface SchemaTypes<TInput, TOutput> {
  * @template TInput - The input type of the schema.
  * @template TOutput - The output type of the schema. Defaults to `TInput`.
  */
-export type Schema<TInput, TOutput = TInput> =
-  | BaseSchema<TInput, TOutput>
-  | BaseSchemaAsync<TInput, TOutput>
+export type GenericSchema<TInput, TOutput = TInput> =
+  | Schema<TInput, TOutput>
+  | AsyncSchema<TInput, TOutput>
 
 /**
  * Extracts the input type from a given schema type.
  *
  * @template TSchema - The schema type to extract the input type from.
  */
-export type Input<TSchema extends Schema<unknown>> = NonNullable<TSchema["~types"]>["input"]
+export type Input<TSchema extends GenericSchema<unknown>> = NonNullable<TSchema["~types"]>["input"]
 
 /**
  * Extracts the output type from a given schema type.
  *
  * @template TSchema - The schema type to extract the output type from.
  */
-export type Output<TSchema extends Schema<unknown>> = NonNullable<TSchema["~types"]>["output"]
+export type Output<TSchema extends GenericSchema<unknown>> = NonNullable<
+  TSchema["~types"]
+>["output"]
