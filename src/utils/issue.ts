@@ -27,7 +27,7 @@ export function addIssue(
   } else {
     newIssue = {
       isFatal: false,
-      message: issue || "Invalid input",
+      message: issue ?? "Invalid input",
       path: resolvePath(path),
     }
   }
