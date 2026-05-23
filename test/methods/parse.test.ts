@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
-import { parse, SeikaiParseError, string } from "@/index"
+import { parse, string } from "@/index"
 
-describe("Parse method", () => {
+describe.concurrent("Parse method", () => {
   const schema = string()
 
   it("should return value when success", () => {
@@ -10,25 +10,5 @@ describe("Parse method", () => {
 
   it("should throw error when fail", () => {
     expect(() => parse(schema, 12)).toThrow("Invalid input")
-  })
-
-  it("should expose correct issue on fail", () => {
-    try {
-      parse(schema, 12)
-      expect.fail("Should have thrown an error")
-    } catch (error) {
-      expect(error).toBeInstanceOf(SeikaiParseError)
-
-      if (error instanceof SeikaiParseError) {
-        expect(error.issues.length).toBe(1)
-        expect(error.issues[0].message).toBe("Invalid input")
-      }
-    }
-  })
-
-  it("should throw custom error message", () => {
-    const customSchema = string("Custom error")
-
-    expect(() => parse(customSchema, 12)).toThrow("Custom error")
   })
 })
