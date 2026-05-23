@@ -1,5 +1,6 @@
 // Schemas
 
+export * from "@/schemas/number"
 export * from "@/schemas/string"
 
 // Methods
