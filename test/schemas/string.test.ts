@@ -13,7 +13,7 @@ describe.concurrent("String schema", () => {
     expect(safeParse(schema, "john").success).toBe(true)
   })
 
-  it.each([12, true, null, undefined, {}, []])("should parse %s with issues", value => {
+  it.each([12, true, null, undefined, {}, []])("should parse with issues", value => {
     expect(safeParse(schema, value).success).toBe(false)
   })
 
