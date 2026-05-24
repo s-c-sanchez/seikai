@@ -18,7 +18,7 @@ describe.concurrent("Number schema", () => {
     expectTypeOf(result).toEqualTypeOf<number>()
   })
 
-  it.each(["john", true, null, undefined, {}, []])("should parse with issues", value => {
+  it.each(["john", 12n, true, null, undefined, {}, []])("should parse with issues", value => {
     expect(safeParse(schema, value).success).toBe(false)
   })
 
