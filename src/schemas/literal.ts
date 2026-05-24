@@ -18,11 +18,11 @@ export function literal<const T extends LiteralValues | readonly LiteralValues[]
   value: T,
   message?: string,
 ): LiteralSchema<T> {
-  const values = Array.isArray(value) ? value : [value]
+  const values = (Array.isArray(value) ? value : [value]) as LiteralValues[]
 
   return {
     "~run": (input, ctx, path) => {
-      if (!values.includes(input as T)) {
+      if (!values.includes(input as any)) {
         addIssue(ctx, path, { isFatal: true, message })
       }
 
