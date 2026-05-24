@@ -6,6 +6,7 @@ export * from "@/schemas/null"
 export * from "@/schemas/number"
 export * from "@/schemas/string"
 export * from "@/schemas/symbol"
+export * from "@/schemas/undefined"
 
 // Methods
 
