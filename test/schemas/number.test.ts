@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest"
-import { number, type SafeParseFail, safeParse } from "@/index"
+import { describe, expect, expectTypeOf, it } from "vitest"
+import { number, parse, type SafeParseFail, safeParse } from "@/index"
 
 describe.concurrent("Number schema", () => {
   const schema = number()
@@ -11,6 +11,11 @@ describe.concurrent("Number schema", () => {
 
   it("should parse successfully", () => {
     expect(safeParse(schema, 12).success).toBe(true)
+  })
+
+  it("should return correct typescript type", () => {
+    const result = parse(schema, 12)
+    expectTypeOf(result).toEqualTypeOf<number>()
   })
 
   it.each(["john", true, null, undefined, {}, []])("should parse with issues", value => {
