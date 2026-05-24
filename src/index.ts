@@ -2,6 +2,7 @@
 
 export * from "@/schemas/bigint"
 export * from "@/schemas/boolean"
+export * from "@/schemas/null"
 export * from "@/schemas/number"
 export * from "@/schemas/string"
 export * from "@/schemas/symbol"
