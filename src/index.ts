@@ -1,18 +1,18 @@
 // Schemas
 
-export * from "@/schemas/any"
-export * from "@/schemas/bigint"
-export * from "@/schemas/boolean"
-export * from "@/schemas/date"
-export * from "@/schemas/enum"
-export * from "@/schemas/literal"
-export * from "@/schemas/never"
-export * from "@/schemas/null"
-export * from "@/schemas/number"
-export * from "@/schemas/string"
-export * from "@/schemas/symbol"
-export * from "@/schemas/undefined"
-export * from "@/schemas/unknown"
+export * from "@/schemas/primitives/any"
+export * from "@/schemas/primitives/bigint"
+export * from "@/schemas/primitives/boolean"
+export * from "@/schemas/primitives/date"
+export * from "@/schemas/primitives/enum"
+export * from "@/schemas/primitives/literal"
+export * from "@/schemas/primitives/never"
+export * from "@/schemas/primitives/null"
+export * from "@/schemas/primitives/number"
+export * from "@/schemas/primitives/string"
+export * from "@/schemas/primitives/symbol"
+export * from "@/schemas/primitives/undefined"
+export * from "@/schemas/primitives/unknown"
 
 // Methods
 
