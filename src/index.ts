@@ -8,6 +8,7 @@ export * from "@/schemas/number"
 export * from "@/schemas/string"
 export * from "@/schemas/symbol"
 export * from "@/schemas/undefined"
+export * from "@/schemas/unknown"
 
 // Methods
 
