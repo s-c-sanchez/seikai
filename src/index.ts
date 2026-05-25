@@ -13,6 +13,7 @@ export * from "@/schemas/primitives/string"
 export * from "@/schemas/primitives/symbol"
 export * from "@/schemas/primitives/undefined"
 export * from "@/schemas/primitives/unknown"
+export * from "@/schemas/structural/object"
 
 // Methods
 
