@@ -1,7 +1,7 @@
 import type { Schema } from "@/types/schemas"
 import { addIssue } from "@/utils/issue"
 
-export type LiteralValues = string | number | bigint | boolean | null | undefined | symbol
+type LiteralValues = string | number | bigint | boolean | null | undefined | symbol
 
 export interface LiteralSchema<T extends LiteralValues | readonly LiteralValues[]>
   extends Schema<T extends readonly LiteralValues[] ? T[number] : T> {

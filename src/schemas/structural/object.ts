@@ -2,13 +2,13 @@ import type { AsyncSchema, GenericSchema, Input, ItemPath, Output, Schema } from
 import type { Pretty } from "@/types/utils"
 import { addIssue } from "@/utils/issue"
 
-export type Shape = Record<string, Schema<unknown>>
-export type GenericShape = Record<string, GenericSchema<unknown>>
+type Shape = Record<string, Schema<unknown>>
+type GenericShape = Record<string, GenericSchema<unknown>>
 
-export type ShapeInput<TShape extends GenericShape> = Pretty<{
+type ShapeInput<TShape extends GenericShape> = Pretty<{
   [K in keyof TShape]: Input<TShape[K]>
 }>
-export type ShapeOutput<TShape extends GenericShape> = Pretty<{
+type ShapeOutput<TShape extends GenericShape> = Pretty<{
   [K in keyof TShape]: Output<TShape[K]>
 }>
 
