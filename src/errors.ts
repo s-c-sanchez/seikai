@@ -5,6 +5,7 @@ export class SeikaiParseError extends Error {
 
   constructor(issues: [Issue, ...Issue[]]) {
     super(issues[0]?.message ?? "Seikai parse error")
+    this.name = "SeikaiParseError"
     this.issues = issues
   }
 }
