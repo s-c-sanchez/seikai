@@ -9,17 +9,22 @@ describe.concurrent("Number schema", () => {
     expect(schema.isAsync).toBe(false)
   })
 
-  it("should parse successfully", () => {
-    expect(safeParse(schema, 12).success).toBe(true)
+  it.each([12, 0, -12])("should parse successfully", value => {
+    const result = safeParse(schema, value)
+
+    expect(result.success).toBe(true)
   })
 
   it("should return correct typescript type", () => {
     const result = parse(schema, 12)
+
     expectTypeOf(result).toEqualTypeOf<number>()
   })
 
   it.each(["john", 12n, true, null, undefined, {}, []])("should parse with issues", value => {
-    expect(safeParse(schema, value).success).toBe(false)
+    const result = safeParse(schema, value)
+
+    expect(result.success).toBe(false)
   })
 
   it("should return correct issue", () => {

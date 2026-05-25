@@ -9,17 +9,22 @@ describe.concurrent("Bigint schema", () => {
     expect(schema.isAsync).toBe(false)
   })
 
-  it("should parse successfully", () => {
-    expect(safeParse(schema, 12n).success).toBe(true)
+  it.each([12n, 0n, -12n])("should parse successfully", value => {
+    const result = safeParse(schema, value)
+
+    expect(result.success).toBe(true)
   })
 
-  it("should return correct typescript type", () => {
+  it("should infer correct typescript type", () => {
     const result = parse(schema, 12n)
+
     expectTypeOf(result).toEqualTypeOf<bigint>()
   })
 
   it.each(["john", 12, true, null, undefined, {}, []])("should parse with issues", value => {
-    expect(safeParse(schema, value).success).toBe(false)
+    const result = safeParse(schema, value)
+
+    expect(result.success).toBe(false)
   })
 
   it("should return correct issue", () => {

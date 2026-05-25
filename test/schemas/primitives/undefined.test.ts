@@ -10,16 +10,21 @@ describe.concurrent("Undefined schema", () => {
   })
 
   it("should parse successfully", () => {
-    expect(safeParse(schema, undefined).success).toBe(true)
+    const result = safeParse(schema, undefined)
+
+    expect(result.success).toBe(true)
   })
 
-  it("should return correct typescript type", () => {
+  it("should infer correct typescript type", () => {
     const result = parse(schema, undefined)
+
     expectTypeOf(result).toEqualTypeOf<undefined>()
   })
 
   it.each(["john", 12, 12n, true, null, {}, []])("should parse with issues", value => {
-    expect(safeParse(schema, value).success).toBe(false)
+    const result = safeParse(schema, value)
+
+    expect(result.success).toBe(false)
   })
 
   it("should return correct issue", () => {

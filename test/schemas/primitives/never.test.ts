@@ -9,7 +9,7 @@ describe.concurrent("Never schema", () => {
     expect(schema.isAsync).toBe(false)
   })
 
-  it("should return correct typescript type", () => {
+  it("should infer correct typescript type", () => {
     try {
       const result = parse(schema, true)
       expectTypeOf(result).toEqualTypeOf<never>()
@@ -17,7 +17,9 @@ describe.concurrent("Never schema", () => {
   })
 
   it.each(["john", 12, 12n, true, null, undefined, {}, []])("should parse with issues", value => {
-    expect(safeParse(schema, value).success).toBe(false)
+    const result = safeParse(schema, value)
+
+    expect(result.success).toBe(false)
   })
 
   it("should return correct issue", () => {

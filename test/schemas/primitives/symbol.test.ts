@@ -9,17 +9,22 @@ describe.concurrent("Symbol schema", () => {
     expect(schema.isAsync).toBe(false)
   })
 
-  it("should parse successfully", () => {
-    expect(safeParse(schema, Symbol()).success).toBe(true)
+  it.each([Symbol(), Symbol("john")])("should parse successfully", value => {
+    const result = safeParse(schema, value)
+
+    expect(result.success).toBe(true)
   })
 
-  it("should return correct typescript type", () => {
+  it("should infer correct typescript type", () => {
     const result = parse(schema, Symbol())
+
     expectTypeOf(result).toEqualTypeOf<symbol>()
   })
 
   it.each(["john", 12, 12n, true, null, undefined, {}, []])("should parse with issues", value => {
-    expect(safeParse(schema, value).success).toBe(false)
+    const result = safeParse(schema, value)
+
+    expect(result.success).toBe(false)
   })
 
   it("should return correct issue", () => {

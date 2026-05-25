@@ -1,11 +1,19 @@
-import { describe, expect, it } from "vitest"
+import { describe, expect, expectTypeOf, it } from "vitest"
 import { parse, parseAsync, string } from "@/index"
 
 describe.concurrent("Parse method", () => {
   const schema = string()
 
   it("should return value when success", () => {
-    expect(parse(schema, "john")).toBe("john")
+    const result = parse(schema, "john")
+
+    expect(result).toBe("john")
+  })
+
+  it("should infer correct typescript type", () => {
+    const result = parse(schema, "john")
+
+    expectTypeOf(result).toEqualTypeOf<string>()
   })
 
   it("should throw error when fail", () => {
@@ -17,7 +25,15 @@ describe.concurrent("Parse async method", () => {
   const schema = string()
 
   it("should return value when success", async () => {
-    expect(await parseAsync(schema, "john")).toBe("john")
+    const result = parseAsync(schema, "john")
+
+    await expect(result).resolves.toBe("john")
+  })
+
+  it("should infer correct typescript type", async () => {
+    const result = parseAsync(schema, "john")
+
+    expectTypeOf(result).toEqualTypeOf<Promise<string>>()
   })
 
   it("should throw error when fail", async () => {

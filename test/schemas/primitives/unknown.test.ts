@@ -10,11 +10,14 @@ describe.concurrent("Unknown schema", () => {
   })
 
   it.each(["john", 12, 12n, true, null, undefined, {}, []])("should parse successfully", value => {
-    expect(safeParse(schema, value).success).toBe(true)
+    const result = safeParse(schema, value)
+
+    expect(result.success).toBe(true)
   })
 
-  it("should return correct typescript type", () => {
+  it("should infer correct typescript type", () => {
     const result = parse(schema, "john")
+
     expectTypeOf(result).toEqualTypeOf<unknown>()
   })
 })

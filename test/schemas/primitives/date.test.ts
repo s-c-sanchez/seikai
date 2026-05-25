@@ -9,12 +9,15 @@ describe.concurrent("Date schema", () => {
     expect(schema.isAsync).toBe(false)
   })
 
-  it("should parse successfully", () => {
-    expect(safeParse(schema, new Date()).success).toBe(true)
+  it.each([new Date(), new Date("2000-01-01")])("should parse successfully", value => {
+    const result = safeParse(schema, value)
+
+    expect(result.success).toBe(true)
   })
 
-  it("should return correct typescript type", () => {
+  it("should infer correct typescript type", () => {
     const result = parse(schema, new Date())
+
     expectTypeOf(result).toEqualTypeOf<Date>()
   })
 
@@ -29,7 +32,9 @@ describe.concurrent("Date schema", () => {
     [],
     new Date("john"),
   ])("should parse with issues", value => {
-    expect(safeParse(schema, value).success).toBe(false)
+    const result = safeParse(schema, value)
+
+    expect(result.success).toBe(false)
   })
 
   it("should return correct issue", () => {

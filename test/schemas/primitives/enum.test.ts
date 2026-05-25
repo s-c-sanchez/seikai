@@ -15,30 +15,33 @@ describe.concurrent("Enum schema", () => {
     expect(schema2.record).toEqual({ john: "john", doe: "doe" })
   })
 
-  it("should parse successfully", () => {
-    expect(safeParse(schema, "john").success).toBe(true)
-    expect(safeParse(schema, "doe").success).toBe(true)
+  it.each(["john", "doe"])("should parse successfully", value => {
+    const result = safeParse(schema, value)
+    const result2 = safeParse(schema2, value)
 
-    expect(safeParse(schema2, "john").success).toBe(true)
-    expect(safeParse(schema2, "doe").success).toBe(true)
+    expect(result.success).toBe(true)
+    expect(result2.success).toBe(true)
   })
 
-  it("should return correct typescript type", () => {
+  it("should infer correct typescript type", () => {
     const result = parse(schema, "john")
-    expectTypeOf(result).toEqualTypeOf<"john" | "doe">()
-
     const result2 = parse(schema2, "john")
+
+    expectTypeOf(result).toEqualTypeOf<"john" | "doe">()
     expectTypeOf(result2).toEqualTypeOf<"john" | "doe">()
   })
 
   it.each(["jane", 12, 12n, true, null, undefined, {}, []])("should parse with issues", value => {
-    expect(safeParse(schema, value).success).toBe(false)
+    const result = safeParse(schema, value)
+    const result2 = safeParse(schema2, value)
 
-    expect(safeParse(schema2, value).success).toBe(false)
+    expect(result.success).toBe(false)
+    expect(result2.success).toBe(false)
   })
 
   it("should return correct issue", () => {
     const result = safeParse(schema, 12)
+    const result2 = safeParse(schema2, 12)
 
     expect(result).toEqual({
       success: false,
@@ -50,9 +53,6 @@ describe.concurrent("Enum schema", () => {
         },
       ],
     } satisfies SafeParseFail)
-
-    const result2 = safeParse(schema2, 12)
-
     expect(result2).toEqual({
       success: false,
       issues: [
@@ -67,7 +67,9 @@ describe.concurrent("Enum schema", () => {
 
   it("should return custom error message", () => {
     const customSchema = s_enum({ john: "john", doe: "doe" }, "Custom error")
+    const customSchema2 = s_enum(["john", "doe"], "Custom error")
     const result = safeParse(customSchema, 12)
+    const result2 = safeParse(customSchema2, 12)
 
     expect(result).toEqual({
       success: false,
@@ -79,10 +81,6 @@ describe.concurrent("Enum schema", () => {
         },
       ],
     } satisfies SafeParseFail)
-
-    const customSchema2 = s_enum(["john", "doe"], "Custom error")
-    const result2 = safeParse(customSchema2, 12)
-
     expect(result2).toEqual({
       success: false,
       issues: [
