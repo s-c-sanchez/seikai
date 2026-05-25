@@ -84,7 +84,7 @@ describe.concurrent("Array schema", () => {
   })
 })
 
-describe.concurrent("Object async schema", () => {
+describe.concurrent("Array async schema", () => {
   const schema = arrayAsync(string())
 
   it("should have correct properties", () => {
