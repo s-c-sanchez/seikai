@@ -63,7 +63,7 @@ export function arrayAsync<TSchema extends Schema<unknown>>(
         promises[i] = Promise.resolve(result)
       }
 
-      return promises
+      return await Promise.all(promises)
     },
     type: "array",
     isAsync: true,
