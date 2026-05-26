@@ -27,7 +27,7 @@ export interface TupleAsyncSchema<TSchema extends readonly GenericSchema<unknown
   readonly items: TSchema
 }
 
-export function tuple<const TSchema extends Schema<unknown>[]>(
+export function tuple<const TSchema extends readonly Schema<unknown>[]>(
   items: TSchema,
   message?: string,
 ): TupleSchema<TSchema> {
@@ -58,7 +58,7 @@ export function tuple<const TSchema extends Schema<unknown>[]>(
   }
 }
 
-export function tupleAsync<const TSchema extends GenericSchema<unknown>[]>(
+export function tupleAsync<const TSchema extends readonly GenericSchema<unknown>[]>(
   items: TSchema,
   message?: string,
 ): TupleAsyncSchema<TSchema> {
