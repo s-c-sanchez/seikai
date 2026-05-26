@@ -31,6 +31,11 @@ interface SchemaTypes<TInput, TOutput> {
   readonly output: TOutput
 }
 
+export interface SchemaOptionalTypes<TInput extends boolean, TOutput extends boolean> {
+  readonly input: TInput
+  readonly output: TOutput
+}
+
 export type GenericSchema<TInput, TOutput = TInput> =
   | Schema<TInput, TOutput>
   | AsyncSchema<TInput, TOutput>

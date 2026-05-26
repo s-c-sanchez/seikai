@@ -1,18 +1,23 @@
 import type { AsyncSchema, GenericSchema, Input, ItemPath, Output, Schema } from "@/types/schemas"
+import type { IsInputOptional, IsOutputOptional } from "@/types/utils"
 import { addIssue } from "@/utils/issue"
 
 type TupleInput<TSchema extends readonly GenericSchema<unknown>[]> = TSchema extends readonly [
   infer Head extends GenericSchema<unknown>,
   ...infer Rest extends readonly GenericSchema<unknown>[],
 ]
-  ? [Input<Head>, ...TupleInput<Rest>]
+  ? IsInputOptional<Head> extends true
+    ? [Input<Head>?, ...TupleInput<Rest>]
+    : [Input<Head>, ...TupleInput<Rest>]
   : []
 
 type TupleOutput<TSchema extends readonly GenericSchema<unknown>[]> = TSchema extends readonly [
   infer Head extends GenericSchema<unknown>,
   ...infer Rest extends readonly GenericSchema<unknown>[],
 ]
-  ? [Output<Head>, ...TupleOutput<Rest>]
+  ? IsOutputOptional<Head> extends true
+    ? [Output<Head>?, ...TupleOutput<Rest>]
+    : [Output<Head>, ...TupleOutput<Rest>]
   : []
 
 export interface TupleSchema<TSchema extends readonly Schema<unknown>[]>
