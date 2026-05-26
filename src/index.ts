@@ -18,6 +18,7 @@ export * from "@/schemas/structural/intersection"
 export * from "@/schemas/structural/map"
 export * from "@/schemas/structural/object"
 export * from "@/schemas/structural/record"
+export * from "@/schemas/structural/set"
 export * from "@/schemas/structural/tuple"
 export * from "@/schemas/structural/union"
 
