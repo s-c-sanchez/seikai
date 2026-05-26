@@ -16,6 +16,7 @@ export * from "@/schemas/primitives/unknown"
 export * from "@/schemas/structural/array"
 export * from "@/schemas/structural/object"
 export * from "@/schemas/structural/record"
+export * from "@/schemas/structural/tuple"
 
 // Methods
 
