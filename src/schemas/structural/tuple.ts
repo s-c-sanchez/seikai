@@ -80,7 +80,7 @@ export function tupleAsync<const TSchema extends GenericSchema<unknown>[]>(
         promises[i] = Promise.resolve(result)
       }
 
-      return promises as TupleOutput<TSchema>
+      return (await Promise.all(promises)) as TupleOutput<TSchema>
     },
     type: "tuple",
     isAsync: true,
