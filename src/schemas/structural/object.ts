@@ -1,16 +1,24 @@
 import type { AsyncSchema, GenericSchema, Input, ItemPath, Output, Schema } from "@/types/schemas"
-import type { Pretty } from "@/types/utils"
+import type { IsInputOptional, IsOutputOptional, Pretty } from "@/types/utils"
 import { addIssue } from "@/utils/issue"
 
 type Shape = Record<string, Schema<unknown>>
 type GenericShape = Record<string, GenericSchema<unknown>>
 
-type ShapeInput<TShape extends GenericShape> = Pretty<{
-  [K in keyof TShape]: Input<TShape[K]>
-}>
-type ShapeOutput<TShape extends GenericShape> = Pretty<{
-  [K in keyof TShape]: Output<TShape[K]>
-}>
+type ShapeInput<TShape extends GenericShape> = Pretty<
+  {
+    [K in keyof TShape as IsInputOptional<TShape[K]> extends true ? K : never]?: Input<TShape[K]>
+  } & {
+    [K in keyof TShape as IsInputOptional<TShape[K]> extends false ? K : never]: Input<TShape[K]>
+  }
+>
+type ShapeOutput<TShape extends GenericShape> = Pretty<
+  {
+    [K in keyof TShape as IsOutputOptional<TShape[K]> extends true ? K : never]?: Output<TShape[K]>
+  } & {
+    [K in keyof TShape as IsOutputOptional<TShape[K]> extends false ? K : never]: Output<TShape[K]>
+  }
+>
 
 export interface ObjectSchema<TShape extends Shape>
   extends Schema<ShapeInput<TShape>, ShapeOutput<TShape>> {
@@ -47,7 +55,8 @@ export function object<TShape extends Shape>(
         innerPath.key = key
         const result = shape[key]!["~run"](inputValue, ctx, innerPath)
 
-        output[key as keyof ShapeOutput<TShape>] = result
+        output[key as keyof ShapeOutput<TShape>] =
+          result as ShapeOutput<TShape>[keyof ShapeOutput<TShape>]
       }
 
       return output
@@ -86,7 +95,9 @@ export function objectAsync<TShape extends GenericShape>(
       const output = {} as ShapeOutput<TShape>
 
       for (let i = 0; i < length; i++) {
-        output[keys[i] as keyof ShapeOutput<TShape>] = resolvedOutputs[i]
+        output[keys[i] as keyof ShapeOutput<TShape>] = resolvedOutputs[
+          i
+        ] as ShapeOutput<TShape>[keyof ShapeOutput<TShape>]
       }
 
       return output
