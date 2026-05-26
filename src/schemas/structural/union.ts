@@ -1,18 +1,18 @@
 import type { AsyncSchema, GenericSchema, Input, Output, Schema } from "@/types/schemas"
 
-export interface UnionSchema<TSchema extends Schema<unknown>[]>
+export interface UnionSchema<TSchema extends readonly Schema<unknown>[]>
   extends Schema<Input<TSchema[number]>, Output<TSchema[number]>> {
   readonly type: "union"
   readonly options: TSchema
 }
 
-export interface UnionAsyncSchema<TSchema extends GenericSchema<unknown>[]>
+export interface UnionAsyncSchema<TSchema extends readonly GenericSchema<unknown>[]>
   extends AsyncSchema<Input<TSchema[number]>, Output<TSchema[number]>> {
   readonly type: "union"
   readonly options: TSchema
 }
 
-export function union<const TSchema extends Schema<unknown>[]>(
+export function union<const TSchema extends readonly Schema<unknown>[]>(
   options: TSchema,
 ): UnionSchema<TSchema> {
   const length = options.length
@@ -46,7 +46,7 @@ export function union<const TSchema extends Schema<unknown>[]>(
   }
 }
 
-export function unionAsync<const TSchema extends GenericSchema<unknown>[]>(
+export function unionAsync<const TSchema extends readonly GenericSchema<unknown>[]>(
   options: TSchema,
 ): UnionAsyncSchema<TSchema> {
   const length = options.length
