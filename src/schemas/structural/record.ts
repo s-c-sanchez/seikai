@@ -71,6 +71,7 @@ export function record<TKey extends Schema<string, PropertyKey>, TValue extends 
         const keyResult = keySchema["~run"](key, ctx, innerPath)
         const valueResult = valueSchema["~run"](inputValue, ctx, innerPath)
 
+        if (keyResult === "__proto__") continue
         output[keyResult as Output<TKey>] = valueResult
       }
 
@@ -115,6 +116,8 @@ export function recordAsync<
       for (let i = 0; i < length; i++) {
         if (keys[i] === "__proto__") continue
         const [keyResult, valueResult] = resolvedOutputs[i]!
+
+        if (keyResult === "__proto__") continue
         output[keyResult as Output<TKey>] = valueResult
       }
 
