@@ -29,6 +29,7 @@ export * from "@/schemas/utility/lazy"
 export * from "@/schemas/utility/nullable"
 export * from "@/schemas/utility/nullish"
 export * from "@/schemas/utility/optional"
+export * from "@/schemas/utility/pipe"
 
 // Methods
 
