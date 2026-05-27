@@ -1,5 +1,5 @@
 import type { AsyncSchema, GenericSchema, Input, Output, Schema } from "@/types/schemas"
-import type { ValueOrFactory } from "@/types/utils"
+import type { MaybePromise, ValueOrFactory } from "@/types/utils"
 
 export interface CatchSchema<TSchema extends Schema<unknown>>
   extends Schema<Input<TSchema>, Output<TSchema>> {
@@ -43,3 +43,32 @@ function s_catch<TSchema extends Schema<unknown>>(
 }
 
 export { s_catch as catch }
+
+export function catchAsync<TSchema extends GenericSchema<unknown>>(
+  inner: TSchema,
+  catchValue: ValueOrFactory<MaybePromise<Output<TSchema>>>,
+): CatchAsyncSchema<TSchema> {
+  return {
+    "~run": async (input, ctx, path) => {
+      const issuesBefore = ctx.issues?.length ?? 0
+      const result = await inner["~run"](input, ctx, path)
+
+      if (ctx.issues && ctx.issues.length > issuesBefore) {
+        if (issuesBefore === 0) {
+          ctx.issues = undefined
+        } else {
+          ctx.issues.length = issuesBefore
+        }
+
+        return typeof catchValue === "function"
+          ? await (catchValue as () => MaybePromise<Output<TSchema>>)()
+          : await catchValue
+      }
+
+      return result
+    },
+    type: "catch",
+    isAsync: true,
+    inner,
+  }
+}
