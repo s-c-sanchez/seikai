@@ -8,7 +8,7 @@ export interface NumberSchema extends Schema<number> {
 export function number(message?: string): NumberSchema {
   return {
     "~run": (input, ctx, path) => {
-      if (typeof input !== "number") {
+      if (!Number.isFinite(input)) {
         addIssue(ctx, path, { isFatal: true, message })
       }
 
