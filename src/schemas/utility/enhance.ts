@@ -39,7 +39,7 @@ export function enhance<TSchema extends Schema<unknown>>(
       }
 
       for (let i = 0; i < length; i++) {
-        result = actions[i]!(result, ctx, path)
+        result = actions[i]!["~run"](result, ctx, path)
       }
 
       return result
@@ -76,7 +76,7 @@ export function enhanceAsync<TSchema extends GenericSchema<unknown>>(
       }
 
       for (let i = 0; i < length; i++) {
-        result = await actions[i]!(result, ctx, path)
+        result = await actions[i]!["~run"](result, ctx, path)
       }
 
       return result
