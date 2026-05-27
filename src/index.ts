@@ -23,6 +23,7 @@ export * from "@/schemas/structural/tuple"
 export * from "@/schemas/structural/union"
 export * from "@/schemas/utility/brand"
 export * from "@/schemas/utility/catch"
+export * from "@/schemas/utility/enhance"
 export * from "@/schemas/utility/fallback"
 export * from "@/schemas/utility/lazy"
 export * from "@/schemas/utility/nullable"
@@ -36,6 +37,7 @@ export * from "@/methods/safe-parse"
 
 // Types
 
+export type * from "@/types/actions"
 export type * from "@/types/issues"
 export type * from "@/types/parsers"
 export type * from "@/types/schemas"
