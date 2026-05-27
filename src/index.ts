@@ -21,6 +21,7 @@ export * from "@/schemas/structural/record"
 export * from "@/schemas/structural/set"
 export * from "@/schemas/structural/tuple"
 export * from "@/schemas/structural/union"
+export * from "@/schemas/utility/nullable"
 export * from "@/schemas/utility/optional"
 
 // Methods
