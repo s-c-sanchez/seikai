@@ -33,6 +33,16 @@ export * from "@/schemas/utility/pipe"
 
 // Actions
 
+export * from "@/transformers/numeric/abs"
+export * from "@/transformers/numeric/ceil"
+export * from "@/transformers/numeric/clamp"
+export * from "@/transformers/numeric/floor"
+export * from "@/transformers/numeric/round"
+export * from "@/transformers/string/capitalize"
+export * from "@/transformers/string/normalize"
+export * from "@/transformers/string/to-lower-case"
+export * from "@/transformers/string/to-upper-case"
+export * from "@/transformers/string/trim"
 export * from "@/transformers/transform"
 export * from "@/validators/check"
 export * from "@/validators/length/length"
